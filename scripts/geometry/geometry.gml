@@ -73,6 +73,12 @@ function Vec2(xx, yy, is_polar=false) constructor {
 		return self
 	}
 
+    snap_to_grid = function(grid_size) {
+        self.X = gridx(gridi(self.X))
+        self.Y = gridy(gridj(self.Y))
+		return self
+    }
+
 	add_polar = function(l, dir) {
 		self.X += lengthdir_x(l, dir)
 		self.Y += lengthdir_y(l, dir)

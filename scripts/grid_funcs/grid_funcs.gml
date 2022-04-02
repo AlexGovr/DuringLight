@@ -1,7 +1,7 @@
 
 global.grid_x = 0
 global.grid_y = 0
-global.grid_size = 24
+global.grid_size = 32
 global.grid_w = 5
 global.grid_h = 5
 global.grid = noone
@@ -22,11 +22,17 @@ function gridy(j) {
 }
 
 function gridi(xx) {
-	return (xx - global.grid_x) div global.grid_size
+	var diff = xx - global.grid_x
+	var correction = diff < 0
+	var _x = diff + correction
+	return _x div global.grid_size - correction 
 }
 
 function gridj(yy) {
-	return (yy - global.grid_y) div global.grid_size
+	var diff = yy - global.grid_y
+	var correction = diff < 0
+	var _y = diff + correction
+	return _y div global.grid_size - correction 
 }
 
 function in_grid_bounds(i, j) {

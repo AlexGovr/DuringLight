@@ -11,8 +11,10 @@ if is_player {
 	key_interact = keyboard_check_pressed(ord("E"))
 	key_interact_hold = keyboard_check(ord("E"))
 	key_create_module = keyboard_check_pressed(ord("Q"))
-	key_action = mouse_check_button_pressed(mb_left)
+	key_action_pressed = mouse_check_button_pressed(mb_left)
+	key_action = mouse_check_button(mb_left)
 	mouse_pos.set(mouse_x, mouse_y)
+	mouse_pos_snapped = mouse_pos.copy().snap_to_grid(global.grid_size)
 
 	up_free = place_empty(x, y - 1, obj_block)
 	down_free = place_empty(x, y + 1, obj_block)
@@ -29,12 +31,18 @@ if is_player {
 	if input {
 		input_dir = point_direction(0, 0, move_h, move_v)
 		velocity.set_polar(sp, input_dir)
-	}
-	
+	} else {
+        velocity.set(0, 0)
+    }
+
 	if (velocity.X > 0) and !right_free or (velocity.X < 0) and !left_free
 		velocity.X = 0
 	if (velocity.Y > 0) and !down_free or (velocity.Y < 0) and !up_free
 		velocity.Y = 0
+    
+    if key_action and (point_dist(mouse_pos.X, mouse_pos.Y) < action_range) {
+        build_candle(mouse_pos_snapped)
+	}
 }
 
 scr_move_coord_contact_obj(velocity.X, velocity.Y, obj_block)
