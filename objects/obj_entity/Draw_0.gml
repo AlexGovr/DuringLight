@@ -6,3 +6,7 @@ if is_player {
 		draw_sprite(spr_cursor, 0, mouse_pos_snapped.X, mouse_pos_snapped.Y)
 	}
 }
+
+if is_building {
+	draw_text(x, y, building.burning_left)
+}

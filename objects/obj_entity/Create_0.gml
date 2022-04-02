@@ -30,6 +30,7 @@ function build_candle(mpos) {
     if inst == noone {
 		if instance_number(obj_candle) == 0 {
 			inst = instance_create_layer(pos.X, pos.Y, layer, obj_candle)
+			inst.building.is_burning = true
 		} else {
 			var nearby = search_candle_nearby(pos)
 			if (nearby and nearby.building.ready() 
@@ -37,6 +38,7 @@ function build_candle(mpos) {
 				inst = instance_create_layer(pos.X, pos.Y, layer, obj_candle)
 				nearby.building.is_ending_part = false
 				inst.building.is_ending_part = true
+				nearby.building.next_candle = inst
 			} else {
 				return false
 			}
@@ -50,18 +52,33 @@ function build_candle(mpos) {
 building = {
 	this: id,
     progress: 0,
-    speed: 0.03,
+    speed: 0.1,
 	is_ending_part: true,
+	next_candle: noone,
+	burning_left: 120,
+	is_burning: false,
 
     build: function() {
-        if self.progress >= 1
+        if self.progress >= 1 {
             return true
+		}
         self.progress += self.speed
         this.image_alpha = progress
         return false
     },
 	ready: function() {
 		return progress >= 1	
+	},
+	step: function() {
+		if !is_burning
+			return false
+		burning_left--
+		if !burning_left {
+			if next_candle != noone {
+				next_candle.building.is_burning = true
+			}
+			instance_destroy(this)
+		}
 	}
 }
 

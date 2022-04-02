@@ -50,3 +50,8 @@ if is_player {
 scr_move_coord_contact_obj(velocity.X, velocity.Y, obj_block)
 if is_player
 	scr_camera_set_pos(0, x, y)
+
+//// building
+if is_building {
+	building.step()
+}
