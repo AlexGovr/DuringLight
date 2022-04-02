@@ -28,12 +28,18 @@ function build_candle(mpos) {
     var pos = mpos
     var inst = collision_point(pos.X, pos.Y, obj_candle, false, true)
     if inst == noone {
-		var nearby = search_candle_nearby(pos)
-		if (nearby and nearby.building.ready())
-				or (instance_number(obj_candle) == 0) {
+		if instance_number(obj_candle) == 0 {
 			inst = instance_create_layer(pos.X, pos.Y, layer, obj_candle)
 		} else {
-			return false
+			var nearby = search_candle_nearby(pos)
+			if (nearby and nearby.building.ready() 
+					and nearby.building.is_ending_part) {
+				inst = instance_create_layer(pos.X, pos.Y, layer, obj_candle)
+				nearby.building.is_ending_part = false
+				inst.building.is_ending_part = true
+			} else {
+				return false
+			}
 		}
     }
     inst.building.build()
@@ -45,6 +51,7 @@ building = {
 	this: id,
     progress: 0,
     speed: 0.03,
+	is_ending_part: true,
 
     build: function() {
         if self.progress >= 1

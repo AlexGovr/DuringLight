@@ -4,6 +4,8 @@ if is_player {
 		game_end()
 	if keyboard_check_pressed(vk_f3)
 		room_restart()
+	if keyboard_check_pressed(vk_f11)
+		window_set_fullscreen(!window_get_fullscreen())
 	key_left = keyboard_check(ord("A")) or keyboard_check(vk_left)
 	key_right = keyboard_check(ord("D")) or keyboard_check(vk_right)
 	key_up = keyboard_check(ord("W")) or keyboard_check(vk_up)
