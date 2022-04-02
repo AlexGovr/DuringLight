@@ -6,9 +6,15 @@ sp = 5
 //// entities
 is_player = false
 is_building = false
+is_resource = false
 
 //// player
 action_range = 100
+resource_amount = 0
+
+function instance_in_point(pos) {
+	return collision_point(pos.X, pos.Y, obj_entity, false, true)
+}
 
 function search_candle_nearby(pos) {
 	var i = gridi(pos.X)
@@ -30,11 +36,17 @@ function build_candle(mpos) {
     if inst == noone {
 		if instance_number(obj_candle) == 0 {
 			inst = instance_create_layer(pos.X, pos.Y, layer, obj_candle)
+			if !resource_amount
+				return false
+			resource_amount--
 			inst.building.is_burning = true
 		} else {
 			var nearby = search_candle_nearby(pos)
 			if (nearby and nearby.building.ready() 
 					and nearby.building.is_ending_part) {
+				if !resource_amount
+					return false
+				resource_amount--
 				inst = instance_create_layer(pos.X, pos.Y, layer, obj_candle)
 				nearby.building.is_ending_part = false
 				inst.building.is_ending_part = true
@@ -79,6 +91,20 @@ building = {
 			}
 			instance_destroy(this)
 		}
+	}
+}
+
+//// resource
+resource = {
+	this: id,
+	mining_cost: 4,
+	mine: function() {
+		mining_cost--
+		if !mining_cost {
+			instance_destroy(this)	
+			return true
+		}
+		return false
 	}
 }
 

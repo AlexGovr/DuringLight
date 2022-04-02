@@ -14,6 +14,7 @@ if is_player {
 	key_interact_hold = keyboard_check(ord("E"))
 	key_create_module = keyboard_check_pressed(ord("Q"))
 	key_action_pressed = mouse_check_button_pressed(mb_left)
+	key_build = mouse_check_button(mb_right)
 	key_action = mouse_check_button(mb_left)
 	mouse_pos.set(mouse_x, mouse_y)
 	mouse_pos_snapped = mouse_pos.copy().snap_to_grid(global.grid_size)
@@ -42,8 +43,16 @@ if is_player {
 	if (velocity.Y > 0) and !down_free or (velocity.Y < 0) and !up_free
 		velocity.Y = 0
     
-    if key_action and (point_dist(mouse_pos.X, mouse_pos.Y) < action_range) {
+	var action_in_range = point_dist(mouse_pos.X, mouse_pos.Y) < action_range
+    if key_build and action_in_range {
         build_candle(mouse_pos_snapped)
+	}
+
+	if key_action_pressed and action_in_range {
+		var inst = instance_in_point(mouse_pos)
+		if inst != noone and inst.is_resource
+			if inst.resource.mine()
+				resource_amount++
 	}
 }
 
