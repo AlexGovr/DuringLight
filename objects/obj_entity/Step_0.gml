@@ -29,7 +29,7 @@ if is_player {
 	input_v = key_down - key_up
 	move_h = key_right * right_free - key_left * left_free
 	move_v = key_down * down_free - key_up * up_free
-	
+
 	var input = abs(input_h) or abs(input_v)
 	if input {
 		input_dir = point_direction(0, 0, move_h, move_v)
@@ -42,7 +42,7 @@ if is_player {
 		velocity.X = 0
 	if (velocity.Y > 0) and !down_free or (velocity.Y < 0) and !up_free
 		velocity.Y = 0
-    
+
 	var action_in_range = point_dist(mouse_pos.X, mouse_pos.Y) < action_range
     if key_build and action_in_range {
         build_candle(mouse_pos_snapped)
@@ -52,7 +52,7 @@ if is_player {
 		var inst = instance_in_point(mouse_pos)
 		if inst != noone and inst.is_resource
 			if inst.resource.mine()
-				resource_amount++
+				resource_amount += resource_gain
 	}
 }
 

@@ -8,5 +8,5 @@ if is_player {
 }
 
 if is_building {
-	draw_text(x, y, building.burning_left)
+	building.draw()
 }

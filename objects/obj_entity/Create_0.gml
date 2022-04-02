@@ -10,7 +10,8 @@ is_resource = false
 
 //// player
 action_range = 100
-resource_amount = 0
+resource_amount = 5
+resource_gain = 5
 
 function instance_in_point(pos) {
 	return collision_point(pos.X, pos.Y, obj_entity, false, true)
@@ -27,13 +28,12 @@ function search_candle_nearby(pos) {
 	if inst { return inst }
 	var inst = collision_point(pos.X, gridy(j+1), obj_candle, false, true)
 	if inst { return inst }
-	return noone	
+	return noone
 }
 
-function build_candle(mpos) {
-    var pos = mpos
-    var inst = collision_point(pos.X, pos.Y, obj_candle, false, true)
-    if inst == noone {
+function build_candle(pos) {
+	var inst = collision_point(pos.X, pos.Y, obj_candle, false, true)
+	if inst == noone {
 		if instance_number(obj_candle) == 0 {
 			inst = instance_create_layer(pos.X, pos.Y, layer, obj_candle)
 			if !resource_amount
@@ -41,23 +41,20 @@ function build_candle(mpos) {
 			resource_amount--
 			inst.building.is_burning = true
 		} else {
-			var nearby = search_candle_nearby(pos)
-			if (nearby and nearby.building.ready() 
-					and nearby.building.is_ending_part) {
+			if global.candles.last.building.building_possible(pos, global.candles.range) {
 				if !resource_amount
 					return false
 				resource_amount--
 				inst = instance_create_layer(pos.X, pos.Y, layer, obj_candle)
-				nearby.building.is_ending_part = false
-				inst.building.is_ending_part = true
-				nearby.building.next_candle = inst
+				global.candles.last.building.next_candle = inst
 			} else {
 				return false
 			}
 		}
-    }
-    inst.building.build()
-	return true
+	}
+	global.candles.last = inst
+	inst.building.build()
+	return true    
 }
 
 //// building
@@ -65,9 +62,8 @@ building = {
 	this: id,
     progress: 0,
     speed: 0.1,
-	is_ending_part: true,
 	next_candle: noone,
-	burning_left: 120,
+	burning_left: 360,
 	is_burning: false,
 
     build: function() {
@@ -91,6 +87,26 @@ building = {
 			}
 			instance_destroy(this)
 		}
+	},
+	building_possible: function(pos, range) {
+		if !self.ready()
+			return false
+		var lastpos = this.position
+		var dist = point_distance(pos.X, pos.Y, lastpos.X, lastpos.Y)
+		if dist > range
+			return false
+		if collision_line(pos.X, pos.Y, lastpos.X, lastpos.Y, obj_block, false, true)
+			return false
+		return true
+	},
+	draw: function() {
+		var t = this
+		draw_text(t.x, t.y, self.burning_left)
+		var ds = global.grid_size * 0.5
+		if instance_exists(next_candle)
+			draw_line_width_color(t.x + ds, t.y + ds, 
+								  next_candle.x + ds,
+								  next_candle.y + ds, 3, c_yellow, c_yellow)
 	}
 }
 
