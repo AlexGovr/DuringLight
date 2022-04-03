@@ -68,22 +68,15 @@ function instance_in_point(pos) {
 function build_candle(pos) {
 	var inst = collision_point(pos.X, pos.Y, obj_candle, false, true)
 	if inst == noone {
-		if instance_number(obj_candle) == 0 {
-			inst = instance_create_layer(pos.X, pos.Y, "instances", obj_candle)
+		if global.candles.last.building.building_possible(pos, global.candles.range) {
 			if !resource_amount
 				return false
 			resource_amount--
-			inst.building.is_burning = true
+			inst = instance_create_layer(pos.X, pos.Y, "instances", obj_candle)
+			global.candles.last.building.next_candle = inst
+			global.candles.last.building.burning_speed = 1
 		} else {
-			if global.candles.last.building.building_possible(pos, global.candles.range) {
-				if !resource_amount
-					return false
-				resource_amount--
-				inst = instance_create_layer(pos.X, pos.Y, "instances", obj_candle)
-				global.candles.last.building.next_candle = inst
-			} else {
-				return false
-			}
+			return false
 		}
 	}
 	global.candles.last = inst
@@ -100,6 +93,7 @@ building = {
 	burning_left: 360,
 	is_burning: false,
     burn_radius: 100,
+	burning_speed: 1,
 
     build: function() {
         if self.progress >= 1 {
@@ -115,8 +109,8 @@ building = {
 	step: function() {
 		if !is_burning
 			return false
-		burning_left--
-		if !burning_left {
+		self.burning_left -= self.burning_speed
+		if !self.burning_left {
 			if next_candle != noone {
 				next_candle.building.is_burning = true
 			}
