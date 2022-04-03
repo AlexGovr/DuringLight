@@ -45,7 +45,7 @@ function Autotiling(layer, x_, y_, tileset, w, h, tile_grid, empty_tile_val) con
 function autotiling_example() {
 	//// just call me somwhere
 	// set this parameters as you like
-	var layer_name = "Instances"
+	var layer_name = layer
 	var tileset_id = generic_ground_tileset
 	var xx = 0
 	var yy = 0

@@ -3,7 +3,7 @@
 position = new Vec2(x, y)
 start_positition = position.copy()
 velocity = new Vec2(0, 0)
-sp = 5
+sp = 2
 hp_start = 4
 hp = hp_start
 mouse_pos = new Vec2(x, y)
@@ -29,8 +29,8 @@ function highlight() {
 }
 
 //// player
-action_range = 100
-attack_range = 120
+action_range = 60
+attack_range = 60
 resource_amount = 5
 resource_gain = 5
 anim_hit_time = 10
@@ -41,6 +41,7 @@ function start() {
 	x = start_positition.X
 	y = start_positition.Y
 	image_alpha = 1
+	dead = false
 }
 
 function set_hit(dir) {
@@ -49,6 +50,7 @@ function set_hit(dir) {
 	hp--
 	if !hp {
 		obj_game.game_over()
+		dead = true
 	}
 }
 
@@ -67,7 +69,7 @@ function build_candle(pos) {
 	var inst = collision_point(pos.X, pos.Y, obj_candle, false, true)
 	if inst == noone {
 		if instance_number(obj_candle) == 0 {
-			inst = instance_create_layer(pos.X, pos.Y, layer, obj_candle)
+			inst = instance_create_layer(pos.X, pos.Y, "instances", obj_candle)
 			if !resource_amount
 				return false
 			resource_amount--
@@ -77,7 +79,7 @@ function build_candle(pos) {
 				if !resource_amount
 					return false
 				resource_amount--
-				inst = instance_create_layer(pos.X, pos.Y, layer, obj_candle)
+				inst = instance_create_layer(pos.X, pos.Y, "instances", obj_candle)
 				global.candles.last.building.next_candle = inst
 			} else {
 				return false
@@ -160,8 +162,8 @@ resource = {
 mob = {
 	this: id,
 	state: "idle",
-	sp: 2,
-	sp_slow: 1,
+	sp: 1,
+	sp_slow: 0.5,
 	hp: 4,
 	view_range: 250,
 	idle_time_base: 180,

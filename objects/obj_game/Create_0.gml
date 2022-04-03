@@ -34,5 +34,5 @@ function restart() {
 }
 
 function game_over() {
-	pause()	
+	pause()
 }

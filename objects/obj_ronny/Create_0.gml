@@ -6,3 +6,4 @@ event_inherited()
 
 is_player = true
 is_hittable = true
+image_speed = 6 / room_speed

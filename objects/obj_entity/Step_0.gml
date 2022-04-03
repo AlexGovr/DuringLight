@@ -1,8 +1,7 @@
 
-if is_player
-	camera_set_pos(0, x, y)
-
+depth = -y
 image_alpha = approach(image_alpha, 0, 0.01 * dead)
+
 if global.game_paused or dead
 	exit
 

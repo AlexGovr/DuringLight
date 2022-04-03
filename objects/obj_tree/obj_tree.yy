@@ -1,15 +1,15 @@
 {
   "spriteId": {
-    "name": "spr_ronny_front",
-    "path": "sprites/spr_ronny_front/spr_ronny_front.yy",
+    "name": "spr_tree",
+    "path": "sprites/spr_tree/spr_tree.yy",
   },
   "solid": false,
   "visible": true,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "obj_entity",
-    "path": "objects/obj_entity/obj_entity.yy",
+    "name": "obj_block",
+    "path": "objects/obj_block/obj_block.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,
@@ -23,17 +23,15 @@
   "physicsStartAwake": true,
   "physicsKinematic": false,
   "physicsShapePoints": [],
-  "eventList": [
-    {"isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
-  ],
+  "eventList": [],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/Objects.yy",
+    "name": "world",
+    "path": "folders/Objects/world.yy",
   },
   "resourceVersion": "1.0",
-  "name": "obj_ronny",
+  "name": "obj_tree",
   "tags": [],
   "resourceType": "GMObject",
 }
