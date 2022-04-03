@@ -4,5 +4,7 @@
 // Inherit the parent event
 event_inherited()
 
-is_player = true
+is_mob = true
 is_hittable = true
+hitbox = instance_create_layer(x, y, layer, obj_mob_hitbox)
+hitbox.target = id

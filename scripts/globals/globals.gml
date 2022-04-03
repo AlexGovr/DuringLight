@@ -1,3 +1,4 @@
+global.game_paused = true
 global.frames_since_start = 0
 
 global.candles_net_range = 200

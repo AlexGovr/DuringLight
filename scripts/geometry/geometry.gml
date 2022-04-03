@@ -61,6 +61,11 @@ function Vec2(xx, yy, is_polar=false) constructor {
 		return self
 	}
 	
+	normalized = function(len) {
+		vec = self.copy()
+		return vec.normalize(len)
+	}
+	
 	set = function(xx, yy) {
 		self.X = xx
 		self.Y = yy
