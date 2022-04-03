@@ -53,7 +53,14 @@ function set_hit(dir) {
 }
 
 function instance_in_point(pos) {
-	return collision_point(pos.X, pos.Y, obj_entity, false, true)
+	var list = ds_list_create()
+	collision_point_list(pos.X, pos.Y, obj_entity, false, true, list, false)
+	for(var i = 0; i < ds_list_size(list); ++i) {
+		var inst = list[| i]
+		if !(inst.is_mob and inst.dead)
+			return inst
+	}
+	return noone
 }
 
 function build_candle(pos) {

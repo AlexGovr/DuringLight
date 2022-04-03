@@ -4,7 +4,7 @@
     "path": "sprites/spr_mob_hitbox/spr_mob_hitbox.yy",
   },
   "solid": false,
-  "visible": true,
+  "visible": false,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {

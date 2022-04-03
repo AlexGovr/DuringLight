@@ -55,6 +55,8 @@ if is_player {
 	if attack_in_range {
 		var inst = instance_in_point(mouse_pos)
 		if inst != noone {
+			if inst.is_hitbox
+				inst = inst.target
 			if inst.is_hittable
 				inst.highlight()
 			if key_action_pressed {
@@ -62,8 +64,7 @@ if is_player {
 					if inst.resource.mine()
 						resource_amount += resource_gain
 				}
-				if inst.is_hitbox and !attack_on_cooldown {
-					inst = inst.target
+				if inst.is_mob and !attack_on_cooldown {
 					inst.mob.set_hit(point_dir(inst.x, inst.y))
 					attack_on_cooldown = attack_cooldown
 				}
