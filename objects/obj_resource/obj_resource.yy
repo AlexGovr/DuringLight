@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_resource",
-    "path": "sprites/spr_resource/spr_resource.yy",
+    "name": "spr_oil",
+    "path": "sprites/spr_oil/spr_oil.yy",
   },
   "solid": false,
   "visible": true,

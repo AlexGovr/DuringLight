@@ -21,5 +21,6 @@ if is_building {
 		building.progress = 1
 		image_alpha = 1
 		global.candles.last = id
+        global.candles.first = id
 	}
 }

@@ -95,10 +95,11 @@ function build_candle(pos) {
 building = {
 	this: id,
     progress: 0,
-    speed: 0.1,
+    speed: 1,
 	next_candle: noone,
 	burning_left: 360,
 	is_burning: false,
+    burn_radius: 100,
 
     build: function() {
         if self.progress >= 1 {
@@ -119,6 +120,7 @@ building = {
 			if next_candle != noone {
 				next_candle.building.is_burning = true
 			}
+            global.candles.first = next_candle
 			instance_destroy(this)
 		}
 	},
@@ -165,19 +167,26 @@ mob = {
 	sp: 1,
 	sp_slow: 0.5,
 	hp: 4,
+	hurt_treshold_hp: 2,
 	view_range: 250,
 	idle_time_base: 180,
 	idle_time: 0,
 	walk_dist: 100,
+    runaway_dist: 240,
 	point_to: new Vec2(x, y),
 	position: new Vec2(x, y),
 	velocity: new Vec2(0, 0),
 	hit_dist: 40,
 	attack_cooldown: 120,
 	attack_on_cooldown: 0,
-	anim_hit_time: 5,
-	knockback_sp: 10,
-	
+	attack_target: noone,
+	attack_prepare_time: 30,
+	attack_preparing: 0,
+	anim_hit_time: 2,
+	knockback_sp: 6,
+	stun_time: 30,
+	stunned: 0,
+
 	idle_state: function() {
 		self.idle_time = self.idle_time_base
 		self.state = "idle"
@@ -188,6 +197,11 @@ mob = {
 	fight_state: function() {
 		self.state = "fight"
 	},
+    runaway_state: function(cndl) {
+        self.state = "runaway"
+        self.point_to = self.position.add_polar_(
+				self.runaway_dist, point_direction(cndl.x, cndl.y, this.x, this.y))
+    },
 	move: function(vel=undefined) {
 		if vel==undefined
 			vel = self.velocity
@@ -203,9 +217,16 @@ mob = {
 	set_hit: function(dir) {
 		this.anim_hit = self.anim_hit_time
 		this.hit_velocity.set_polar(self.knockback_sp, dir)
+		self.stunned = self.stun_time
 		self.hp--
 		if !self.hp
 			this.dead = true
+	},
+    feels_hurt: function() {
+        return self.hp <= self.hurt_treshold_hp
+    },
+	search_attack_target: function() {
+		
 	}
 }
 

@@ -1,7 +1,14 @@
 
 debug_ini()
 
+shader = {
+	candle_pos: shader_get_uniform(shd_lighting, "candle_pos"),
+	cndl_u: 0,
+	cndl_v: 0,
+}
 pause_on = true
+surf = surface_create(camw()*2, camh()*2)
+surf_dark = surface_create(camw()*2, camh()*2)
 
 foreground_alpha = 1
 foreground_alpha_pause_treshold = 1

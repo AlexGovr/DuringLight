@@ -86,57 +86,82 @@ if is_building {
 if is_mob {
 	mob.position.set(x, y)
 	var msp = mob.sp
-	var p = mob.point_to
 	var dist = infinity
 	if instance_exists(obj_ronny)
 		dist = point_dist(obj_ronny.x, obj_ronny.y)
 	mob.attack_on_cooldown--
-	switch mob.state {
-		case "idle": {
-			mob.idle_time--
-			if !mob.idle_time {
-				mob.walk_state()
-				mob.point_to.add_polar(mob.walk_dist, random(360))
-			}
-			if dist < mob.view_range {
-				mob.fight_state()
-				dest_reached = false
-				break
-			}
-			break
-		}
-		case "walk": {
-			if mob.dest_reached(msp) {
-				state = "idle"
-				mob.idle_state()
-				mob.velocity.set(0, 0)
-				break
-			}
-			if dist < mob.view_range {
-				mob.fight_state()
-				dest_reached = false
-				break
-			}
-			mob.velocity = mob.point_to.sub_(mob.position).normalized(msp)
-			mob.move()
-			break
-		}
-		case "fight": {
-			mob.point_to = obj_ronny.position.add_polar_(
-				mob.hit_dist, point_direction(obj_ronny.x, obj_ronny.y, x, y))
-			if mob.dest_reached(msp) {
-				mob.velocity.set(0, 0)
-				if !mob.attack_on_cooldown {
-					mob.attack(obj_ronny)
+	mob.stunned--
+    var cndl = global.candles.first
+    if cndl != noone {
+        if point_dist(cndl.x, cndl.y) < cndl.building.burn_radius {
+            msp = mob.sp_slow
+            if mob.feels_hurt()
+                mob.runaway_state(cndl)
+        }
+    }
+	if !mob.stunned {
+		switch mob.state {
+			case "idle": {
+				mob.idle_time--
+				if !mob.idle_time {
+					mob.walk_state()
+					mob.point_to.add_polar(mob.walk_dist, random(360))
 				}
-			} else {
-				mob.velocity = mob.point_to.sub_(mob.position).normalized(msp)
+				if dist < mob.view_range {
+					mob.fight_state()
+					dest_reached = false
+					break
+				}
+				break
 			}
-			mob.move()
-			break
+			case "walk": {
+				if mob.dest_reached(msp) {
+					state = "idle"
+					mob.idle_state()
+					mob.velocity.set(0, 0)
+					break
+				}
+				if dist < mob.view_range {
+					mob.fight_state()
+					dest_reached = false
+					break
+				}
+				mob.velocity = mob.point_to.sub_(mob.position).normalized(msp)
+				mob.move()
+				break
+			}
+			case "fight": {
+				mob.point_to = obj_ronny.position.add_polar_(
+					mob.hit_dist, point_direction(obj_ronny.x, obj_ronny.y, x, y))
+				if mob.dest_reached(msp) {
+					mob.velocity.set(0, 0)
+					if mob.attack_prepairing == 0 {
+						mob.attack_prepairing = mob.attack_prepare_time
+					}
+					mob.attack_prepairing--
+					if (mob.attack_prepairing == 0) and !mob.attack_on_cooldown {
+						mob.attack(obj_ronny)
+					}
+				} else {
+					mob.velocity = mob.point_to.sub_(mob.position).normalized(msp)
+					mob.attack_prepairing = 0
+				}
+				mob.move()
+				break
+			}
+	        case "runaway": {
+	            if !instance_exists(cndl) {
+	                mob.idle_state()
+	                break
+	            }
+	            mob.velocity = mob.point_to.sub_(mob.position).normalized(msp)
+	            break
+	        }
 		}
 	}
 	var vlc = mob.velocity
+	if mob.stunned
+		vlc = new Vec2(0, 0)
 	if anim_hit {
 		vlc = hit_velocity
 		anim_hit--
