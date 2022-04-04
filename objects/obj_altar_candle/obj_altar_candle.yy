@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_altar_candle",
-    "path": "sprites/spr_altar_candle/spr_altar_candle.yy",
+    "name": "spr_main_candle2",
+    "path": "sprites/spr_main_candle2/spr_main_candle2.yy",
   },
   "solid": false,
   "visible": true,

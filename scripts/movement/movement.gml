@@ -13,17 +13,14 @@ function scr_move_coord(hsp, vsp) {
 
 function scr_move_coord_contact_obj(hsp, vsp, obj) {
 	scr_move_coord(hsp, vsp)
+	var dir = point_direction(0, 0, hsp, vsp)
 	//collision
 	var contact = instance_place(x, y, obj)
 	if contact  {
-		// compute relative movement
-		var relhsp = hsp - contact.velocity.X
-		var relvsp = vsp - contact.velocity.Y
-		var reldir = point_direction(0, 0, relhsp, relvsp)
 		// move out of an object
 		while place_meeting(x, y, contact) {
-	        x -= lengthdir_x(1, reldir)
-	        y -= lengthdir_y(1, reldir)
+	        x -= lengthdir_x(1, dir)
+	        y -= lengthdir_y(1, dir)
 		}
 		return contact
 	}

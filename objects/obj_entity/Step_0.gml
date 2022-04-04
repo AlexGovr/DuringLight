@@ -19,10 +19,12 @@ if is_player {
 	mouse_pos.set(mouse_x, mouse_y)
 	mouse_pos_snapped = mouse_pos.copy().snap_to_grid(global.grid_size)
 
-	up_free = place_empty(x, y - 1, obj_block)
-	down_free = place_empty(x, y + 1, obj_block)
-	left_free = place_empty(x - 1, y, obj_block)
-	right_free = place_empty(x + 1, y, obj_block)
+	//// sound
+	var cndl = global.candles.first
+	if instance_exists(cndl) {
+		global.candle_sound_gain = max(1 - point_dist(cndl.x, cndl.y) / global.candle_sound_dist, 0)
+		audio_sound_gain(global.candle_sound, global.candle_sound_gain, 0)
+	}
 
 	//// movement
 	input_h = key_right - key_left
@@ -38,11 +40,6 @@ if is_player {
         velocity.set(0, 0)
     }
 
-	if (velocity.X > 0) and !right_free or (velocity.X < 0) and !left_free
-		velocity.X = 0
-	if (velocity.Y > 0) and !down_free or (velocity.Y < 0) and !up_free
-		velocity.Y = 0
-	
 	var mdist = point_dist(mouse_pos.X, mouse_pos.Y)
 	var action_in_range = mdist < action_range
     if key_build and action_in_range {
@@ -51,10 +48,7 @@ if is_player {
 
 	attack_on_cooldown--
 	var attack_in_range = mdist < attack_range
-	if key_action_pressed and !attack_on_cooldown {
-		animate_attack()
-		attack_on_cooldown = attack_cooldown
-	}
+	var attack_snd_gain = global.slash_sound_gain_on_miss
 	if attack_in_range {
 		var inst = instance_in_point(mouse_pos)
 		if inst != noone {
@@ -63,24 +57,42 @@ if is_player {
 			if inst.is_hittable
 				inst.highlight()
 			if key_action_pressed {
-				animate_attack()
 				if inst.is_resource {
 					if inst.resource.mine()
 						resource_amount += resource_gain
 				}
 				if inst.is_mob and !attack_on_cooldown {
 					inst.mob.set_hit(point_dir(inst.x, inst.y))
+					attack_snd_gain = global.slash_sound_gain_on_hit
 				}
 			}
 		}
+	}
+	if key_action_pressed and !attack_on_cooldown {
+		var snd = animate_attack()
+		attack_on_cooldown = attack_cooldown
+		audio_sound_gain(snd, attack_snd_gain, 0)
 	}
 	var vlc = velocity
 	if anim_hit {
 		vlc = hit_velocity
 		anim_hit--
 	}
-	scr_move_coord_contact_obj(vlc.X, vlc.Y, obj_block)
+	
+	if (vlc.X > 0) and !right_free or (vlc.X < 0) and !left_free
+		vlc.X = 0
+	if (vlc.Y > 0) and !down_free or (vlc.Y < 0) and !up_free
+		vlc.Y = 0
+
+	if abs(vlc.len())
+		scr_move_coord_contact_obj(vlc.X, vlc.Y, obj_block)
     animate(vlc, input)
+	
+	up_free = place_empty(x, y - 1, obj_block)
+	down_free = place_empty(x, y + 1, obj_block)
+	left_free = place_empty(x - 1, y, obj_block)
+	right_free = place_empty(x + 1, y, obj_block)
+
 }
 
 //// building

@@ -33,18 +33,18 @@ if is_player {
 	if point_dist(mouse_pos.X, mouse_pos.Y) < action_range {
 		draw_sprite(spr_cursor, 0, mouse_pos_snapped.X, mouse_pos_snapped.Y)
 	}
-	draw_text_above_me(hp)
+	//draw_text_above_me(hp)
 }
 
 if is_building {
 	building.draw()
     if building.is_burning {
-        draw_circle(x, y, building.burn_radius, true)
+        //draw_circle(x, y, building.burn_radius, true)
     }
 }
 
 if is_mob {
-	draw_circle(x, y, mob.hit_dist, true)	
+	//draw_circle(x, y, mob.hit_dist, true)	
 }
 
 highlighted = false

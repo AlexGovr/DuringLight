@@ -27,6 +27,12 @@ pause_text = "Press any key to watch world's agony"
 alpha_ratio = 0.007
 alpha_ratio_reverse = 0.015 
 
+audio_set_master_gain(slash, global.slash_sound_gain_on_miss)
+//audio_play_sound(Scarry, 0, true)
+var snd = audio_play_sound(Ambient, 0, true)
+audio_sound_gain(snd, 0.1, 0)
+global.candle_sound = audio_play_sound(Candle, 0, true)
+
 function pause() {
 	pause_on = true
 }

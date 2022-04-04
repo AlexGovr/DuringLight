@@ -1,5 +1,9 @@
 
 //// general
+up_free = false
+down_free = false
+left_free = false
+right_free = false
 position = new Vec2(x, y)
 start_positition = position.copy()
 velocity = new Vec2(0, 0)
@@ -14,6 +18,8 @@ attack_on_cooldown = 0
 attack_cooldown = 30
 highlighted = false
 dead = false
+
+image_speed = 0
 
 //// entities
 is_player = false
@@ -86,19 +92,23 @@ attack_sprite_index = noone
 attack_image_index = 0
 
 function animate(vlc, input_active) {
-    if !input_active
+    if !input_active {
+		image_speed = sprite_index == sPlayerIdle_strip4 or sprite_index == sOrcIdle_strip2
         return -1
+	}
     var r = vlc.X > 0
     var d = vlc.Y > 0
     var l = vlc.X < 0
     var u = vlc.Y < 0
     var index = r + d * 2 + l * 4 + u * 8
     sprite_index = anim_set[index]
+	image_speed = 1
     return index
 }
 
 function animate_attack() {
     attack_sprite_index = anim_attack_set[sprite_index]
+	return audio_play_sound(slash, 0, false)
 }
 
 function draw_shadow() {
@@ -138,7 +148,7 @@ function instance_in_point(pos) {
 	collision_point_list(pos.X, pos.Y, obj_entity, false, true, list, false)
 	for(var i = 0; i < ds_list_size(list); ++i) {
 		var inst = list[| i]
-		if !(inst.is_mob and inst.dead)
+		if !(inst.is_mob or inst.dead)
 			return inst
 	}
 	return noone
@@ -212,12 +222,15 @@ building = {
 	},
 	draw: function() {
 		var t = this
-		draw_text(t.x, t.y, self.burning_left)
+		//draw_text(t.x, t.y, self.burning_left)
 		var ds = global.grid_size * 0.5
-		if instance_exists(next_candle)
+		if instance_exists(next_candle) {
+			draw_set_alpha(0.25)
 			draw_line_width_color(t.x + ds, t.y + ds, 
 								  next_candle.x + ds,
 								  next_candle.y + ds, 3, c_yellow, c_yellow)
+			draw_set_alpha(1)
+		}
 	}
 }
 

@@ -1,17 +1,4 @@
 
-//// init
-if is_player {
-	switch (global.candle_type) {
-		case Candle.snake: {
-			global.candles.range = global.grid_size
-			break
-		}
-		case Candle.net: {
-			global.candles.range = global.candles_net_range
-			break
-		}
-	}
-}
 
 if is_building {
     image_alpha = 0
