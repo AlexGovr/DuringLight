@@ -12,4 +12,8 @@ global.candles = {
 	first: noone,
     last: noone,
 	range: -1,
+	restart: function(first) {
+		self.first = first
+		self.last = first
+	}
 }

@@ -7,6 +7,8 @@ shader = {
 	cndl_v: 0,
 }
 pause_on = true
+restarting = false
+screen_darkening = 0
 surf = surface_create(camw()*2, camh()*2)
 surf_dark = surface_create(camw()*2, camh()*2)
 
@@ -23,6 +25,7 @@ pause_text_alpha_start_treshold = 0.25
 pause_text = "Press any key to watch world's agony"
 
 alpha_ratio = 0.007
+alpha_ratio_reverse = 0.015 
 
 function pause() {
 	pause_on = true
@@ -33,10 +36,21 @@ function start() {
 	with obj_entity { 
 		start()
 	}
+
+	//if !instance_number(obj_altar_candle) {
+	//	var info = start_info.altar_candle
+	//	var inst = instance_create_layer(info.X, info.Y, "instances", obj_altar_candle)
+	//	global.candles.restart(inst)
+	//}
 }
 
 function restart() {
 	global.frames_since_start = 0
+	//instance_destroy(obj_candle)
+	//instance_destroy(obj_altar_candle)
+	//restarting = true
+	//screen_darkening = 1
+	room_restart()
 	start()
 }
 

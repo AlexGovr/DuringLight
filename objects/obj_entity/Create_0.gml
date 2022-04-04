@@ -116,6 +116,8 @@ building = {
 			}
             global.candles.first = next_candle
 			instance_destroy(this)
+			if !instance_exists(next_candle)
+				obj_game.game_over()
 		}
 	},
 	building_possible: function(pos, range) {
@@ -166,7 +168,7 @@ mob = {
 	idle_time_base: 180,
 	idle_time: 0,
 	walk_dist: 100,
-    runaway_dist: 240,
+    runaway_dist: 120,
 	point_to: new Vec2(x, y),
 	position: new Vec2(x, y),
 	velocity: new Vec2(0, 0),

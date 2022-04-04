@@ -155,6 +155,8 @@ if is_mob {
 	                break
 	            }
 	            mob.velocity = mob.point_to.sub_(mob.position).normalized(msp)
+				if mob.dest_reached(msp)
+					mob.idle_state()
 	            break
 	        }
 		}
