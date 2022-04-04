@@ -22,6 +22,7 @@ is_resource = false
 is_mob = false
 is_hitbox = false
 is_hittable = false
+is_obstacle = false
 
 function highlight() {
 	highlighted = true
@@ -74,6 +75,12 @@ function animate(vlc) {
     var index = r + d * 2 + l * 4 + u * 8
     sprite_index = anim_set[index]
     return index
+}
+
+function draw_shadow() {
+	draw_sprite_ext(spr_shadow, 0, x, y,
+					global.shadows_scale, global.shadows_scale,
+					0, c_white, global.shadows_alpha)
 }
 
 //// player

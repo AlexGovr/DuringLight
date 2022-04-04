@@ -4,6 +4,17 @@ if highlighted
 	col = c_blue
 if anim_hit
 	var col = make_color_rgb(anim_hit/anim_hit_time, 0, 0)
+
+// draw shadows
+if is_player or is_mob {
+	draw_shadow()
+}
+//if is_obstacle {
+//	draw_sprite_ext(sprite_index, 1, x, y, 
+//				image_xscale, image_yscale,
+//				image_angle, col, global.shadows_alpha)
+//}
+
 draw_sprite_ext(sprite_index, image_index, x, y, 
 				image_xscale, image_yscale,
 				image_angle, col, image_alpha)

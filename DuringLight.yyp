@@ -41,6 +41,7 @@
     {"id":{"name":"obj_altar_candle","path":"objects/obj_altar_candle/obj_altar_candle.yy",},"order":10,},
     {"id":{"name":"sPlayerMoveDown_strip4","path":"sprites/sPlayerMoveDown_strip4/sPlayerMoveDown_strip4.yy",},"order":7,},
     {"id":{"name":"obj_block","path":"objects/obj_block/obj_block.yy",},"order":2,},
+    {"id":{"name":"spr_shadow","path":"sprites/spr_shadow/spr_shadow.yy",},"order":14,},
     {"id":{"name":"sOrcIdle_strip2","path":"sprites/sOrcIdle_strip2/sOrcIdle_strip2.yy",},"order":3,},
     {"id":{"name":"spr_tileset_walls","path":"sprites/spr_tileset_walls/spr_tileset_walls.yy",},"order":1,},
     {"id":{"name":"obj_ronny","path":"objects/obj_ronny/obj_ronny.yy",},"order":3,},
