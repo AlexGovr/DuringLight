@@ -1,6 +1,7 @@
 global.game_paused = true
 global.frames_since_start = 0
 global.lighting_on = true
+global.creature_animation_speed = 1.5
 
 global.candles_net_range = 200
 enum Candle {

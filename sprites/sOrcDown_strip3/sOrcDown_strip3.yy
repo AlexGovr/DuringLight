@@ -38,7 +38,7 @@
     "spriteId": {"name":"sOrcDown_strip3","path":"sprites/sOrcDown_strip3/sOrcDown_strip3.yy",},
     "timeUnits": 1,
     "playback": 1,
-    "playbackSpeed": 30.0,
+    "playbackSpeed": 4.0,
     "playbackSpeedType": 0,
     "autoRecord": true,
     "volume": 1.0,

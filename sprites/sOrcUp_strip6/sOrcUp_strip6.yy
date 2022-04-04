@@ -47,7 +47,7 @@
     "spriteId": {"name":"sOrcUp_strip6","path":"sprites/sOrcUp_strip6/sOrcUp_strip6.yy",},
     "timeUnits": 1,
     "playback": 1,
-    "playbackSpeed": 30.0,
+    "playbackSpeed": 4.0,
     "playbackSpeedType": 0,
     "autoRecord": true,
     "volume": 1.0,

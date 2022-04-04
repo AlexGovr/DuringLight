@@ -6,4 +6,5 @@ event_inherited()
 
 is_player = true
 is_hittable = true
-image_speed = 6 / room_speed
+image_speed = global.creature_animation_speed
+anim_set = anim_set_player

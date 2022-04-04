@@ -41,7 +41,7 @@
     "spriteId": {"name":"sPlayerMoveRight_strip4","path":"sprites/sPlayerMoveRight_strip4/sPlayerMoveRight_strip4.yy",},
     "timeUnits": 1,
     "playback": 1,
-    "playbackSpeed": 30.0,
+    "playbackSpeed": 4.0,
     "playbackSpeedType": 0,
     "autoRecord": true,
     "volume": 1.0,

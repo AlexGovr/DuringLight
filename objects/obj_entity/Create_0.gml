@@ -23,9 +23,57 @@ is_mob = false
 is_hitbox = false
 is_hittable = false
 
-
 function highlight() {
 	highlighted = true
+}
+
+//// animation
+anim_set_player = [
+	sPlayerIdle_strip4,             // 0
+	sPlayerMoveRight_strip4,        // 1 r
+	sPlayerMoveDown_strip4,         // 2 d
+	sPlayerMoveDown_strip4,        // 3 rd
+	sPlayerMoveLeft_strip4,         // 4 l
+	sPlayerIdle_strip4,             // 5 lr
+	sPlayerMoveDown_strip4,         // 6 ld
+	sPlayerMoveDown_strip4,         // 7 lrd
+	sPlayerMoveUp_strip4,            // 8 u
+    sPlayerMoveUp_strip4,           // 9 ur
+	sPlayerIdle_strip4,             // 10 ud
+	sPlayerIdle_strip4,             // 11 urd
+	sPlayerMoveUp_strip4,           // 12 ul
+	sPlayerMoveUp_strip4,        // 13 ulr
+	sPlayerMoveLeft_strip4,         // 14 uld
+	sPlayerIdle_strip4,             // 15 ulrd
+]
+anim_set_orc = [
+	sOrcIdle_strip2,             // 0
+	sOrcRight_strip4,        // 1 r
+	sOrcDown_strip3,         // 2 d
+	sOrcDown_strip3,        // 3 rd
+	sOrcLeft_strip4,         // 4 l
+	sOrcIdle_strip2,             // 5 lr
+	sOrcDown_strip3,         // 6 ld
+	sOrcDown_strip3,         // 7 lrd
+	sOrcUp_strip6,            // 8 u
+    sOrcUp_strip6,           // 9 ur
+	sOrcIdle_strip2,             // 10 ud
+	sOrcIdle_strip2,             // 11 urd
+	sOrcUp_strip6,           // 12 ul
+	sOrcUp_strip6,        // 13 ulr
+	sOrcLeft_strip4,         // 14 uld
+	sOrcIdle_strip2,             // 15 ulrd
+]
+anim_set = undefined
+
+function animate(vlc) {
+    var r = vlc.X > 0
+    var d = vlc.Y > 0
+    var l = vlc.X < 0
+    var u = vlc.Y < 0
+    var index = r + d * 2 + l * 4 + u * 8
+    sprite_index = anim_set[index]
+    return index
 }
 
 //// player

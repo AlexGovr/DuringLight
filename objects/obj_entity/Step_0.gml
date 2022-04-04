@@ -76,6 +76,7 @@ if is_player {
 		anim_hit--
 	}
 	scr_move_coord_contact_obj(vlc.X, vlc.Y, obj_block)
+    animate(vlc)
 }
 
 //// building
@@ -171,4 +172,7 @@ if is_mob {
 	scr_move_coord_contact_obj(vlc.X, vlc.Y, obj_block)
 	hitbox.x = x
 	hitbox.y = y
+	var dir_ind = round(vlc.dir() / 45) * 45
+	var anim_vlc = new Vec2(1, dir_ind, true)
+    animate(anim_vlc)
 }
