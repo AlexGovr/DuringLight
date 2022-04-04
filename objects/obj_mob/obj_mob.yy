@@ -5,7 +5,10 @@
   },
   "solid": false,
   "visible": true,
-  "spriteMaskId": null,
+  "spriteMaskId": {
+    "name": "sPlayerIdle_strip4",
+    "path": "sprites/sPlayerIdle_strip4/sPlayerIdle_strip4.yy",
+  },
   "persistent": false,
   "parentObjectId": {
     "name": "obj_entity",
