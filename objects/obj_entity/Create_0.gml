@@ -65,9 +65,29 @@ anim_set_orc = [
 	sOrcLeft_strip4,         // 14 uld
 	sOrcIdle_strip2,             // 15 ulrd
 ]
-anim_set = undefined
 
-function animate(vlc) {
+anim_attack_player = []
+anim_attack_player[sPlayerIdle_strip4] = sAttackDown_strip3
+anim_attack_player[sPlayerMoveRight_strip4] = sAttackRight_strip3
+anim_attack_player[sPlayerMoveDown_strip4] = sAttackDown_strip3
+anim_attack_player[sPlayerMoveLeft_strip4] = sAttackLeft_strip3
+anim_attack_player[sPlayerMoveUp_strip4] = sAttackUp_strip3
+
+anim_attack_orc = []
+anim_attack_orc[sOrcIdle_strip2] = sAttackDown_strip3
+anim_attack_orc[sOrcRight_strip4] = sAttackRight_strip3
+anim_attack_orc[sOrcDown_strip3] = sAttackDown_strip3
+anim_attack_orc[sOrcLeft_strip4] = sAttackLeft_strip3
+anim_attack_orc[sOrcUp_strip6] = sAttackUp_strip3
+
+anim_set = undefined
+anim_attack_set = undefined
+attack_sprite_index = noone
+attack_image_index = 0
+
+function animate(vlc, input_active) {
+    if !input_active
+        return -1
     var r = vlc.X > 0
     var d = vlc.Y > 0
     var l = vlc.X < 0
@@ -75,6 +95,10 @@ function animate(vlc) {
     var index = r + d * 2 + l * 4 + u * 8
     sprite_index = anim_set[index]
     return index
+}
+
+function animate_attack() {
+    attack_sprite_index = anim_attack_set[sprite_index]
 }
 
 function draw_shadow() {

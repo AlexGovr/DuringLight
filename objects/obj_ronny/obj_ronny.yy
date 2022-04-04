@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_ronny_front",
-    "path": "sprites/spr_ronny_front/spr_ronny_front.yy",
+    "name": "sPlayerIdle_strip4",
+    "path": "sprites/sPlayerIdle_strip4/sPlayerIdle_strip4.yy",
   },
   "solid": false,
   "visible": true,

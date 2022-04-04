@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_mob",
-    "path": "sprites/spr_mob/spr_mob.yy",
+    "name": "sOrcIdle_strip2",
+    "path": "sprites/sOrcIdle_strip2/sOrcIdle_strip2.yy",
   },
   "solid": false,
   "visible": true,

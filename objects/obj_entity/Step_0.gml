@@ -51,6 +51,10 @@ if is_player {
 
 	attack_on_cooldown--
 	var attack_in_range = mdist < attack_range
+	if key_action_pressed and !attack_on_cooldown {
+		animate_attack()
+		attack_on_cooldown = attack_cooldown
+	}
 	if attack_in_range {
 		var inst = instance_in_point(mouse_pos)
 		if inst != noone {
@@ -59,13 +63,13 @@ if is_player {
 			if inst.is_hittable
 				inst.highlight()
 			if key_action_pressed {
+				animate_attack()
 				if inst.is_resource {
 					if inst.resource.mine()
 						resource_amount += resource_gain
 				}
 				if inst.is_mob and !attack_on_cooldown {
 					inst.mob.set_hit(point_dir(inst.x, inst.y))
-					attack_on_cooldown = attack_cooldown
 				}
 			}
 		}
@@ -76,7 +80,7 @@ if is_player {
 		anim_hit--
 	}
 	scr_move_coord_contact_obj(vlc.X, vlc.Y, obj_block)
-    animate(vlc)
+    animate(vlc, input)
 }
 
 //// building
@@ -142,6 +146,7 @@ if is_mob {
 					mob.attack_prepairing--
 					if (mob.attack_prepairing == 0) and !mob.attack_on_cooldown {
 						mob.attack(obj_ronny)
+						animate_attack()
 					}
 				} else {
 					mob.velocity = mob.point_to.sub_(mob.position).normalized(msp)
@@ -174,5 +179,5 @@ if is_mob {
 	hitbox.y = y
 	var dir_ind = round(vlc.dir() / 45) * 45
 	var anim_vlc = new Vec2(1, dir_ind, true)
-    animate(anim_vlc)
+    animate(anim_vlc, abs(anim_vlc.len()))
 }

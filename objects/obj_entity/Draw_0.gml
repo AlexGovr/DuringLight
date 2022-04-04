@@ -6,9 +6,19 @@ if anim_hit
 	var col = make_color_rgb(anim_hit/anim_hit_time, 0, 0)
 
 // draw shadows
-if is_player or is_mob {
+if (is_player or is_mob) and !dead {
 	draw_shadow()
 }
+
+if attack_sprite_index {
+    draw_sprite(attack_sprite_index, attack_image_index, x, y)
+    attack_image_index += sprite_get_speed(attack_sprite_index) * 1.5 / room_speed
+	if attack_image_index >= sprite_get_number(attack_sprite_index) {
+		attack_sprite_index = noone
+		attack_image_index = 0
+	}
+}
+
 //if is_obstacle {
 //	draw_sprite_ext(sprite_index, 1, x, y, 
 //				image_xscale, image_yscale,
