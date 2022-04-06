@@ -166,6 +166,21 @@ Tutorial = {
 	}
 }
 
+Foreground = {
+	this: id,
+	draw: function() {
+		var foreground = this.foreground
+		var foreground_alpha = this.foreground_alpha
+		var pause_text = this.pause_text
+		var pause_text_alpha = this.pause_text_alpha
+		draw_surface_ext(foreground, camx(), camy(), 1, 1, 0, c_white, foreground_alpha)
+		if foreground_alpha == 1 {
+			draw_text_custom(camx_cent(), camy_cent(), pause_text, fnt, fa_center, fa_middle)
+			draw_surface_ext(foreground, camx(), camy(), 1, 1, 0, c_white, (1-pause_text_alpha))
+		}	
+	}
+}
+
 UI = {
 	draw: function() {
 		var x0 = 20

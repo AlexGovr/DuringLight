@@ -133,6 +133,7 @@ function start() {
 	image_alpha = 1
 	dead = false
 	resource_amount = resource_amount_start
+	anim_hit = 0
 }
 
 function set_hit(dir) {
