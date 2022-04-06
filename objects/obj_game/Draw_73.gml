@@ -1,15 +1,4 @@
 
-tutorial.draw()
-
-draw_surface_ext(foreground, camx(), camy(), 1, 1, 0, c_white, foreground_alpha)
-if foreground_alpha == 1 {
-	draw_text_custom(camx_cent(), camy_cent(), pause_text, fnt, fa_center, fa_middle)
-	draw_surface_ext(foreground, camx(), camy(), 1, 1, 0, c_white, (1-pause_text_alpha))
-}
-
-//if !surface_exists(surf) exit
-
-
 //surface_copy_part(surf, 0, 0, application_surface, camx(), camy(), camw(), camh())
 surface_copy(surf, 0, 0, application_surface)
 var cndl = global.candles.first
@@ -51,21 +40,11 @@ if pause_text_alpha == 0 and global.lighting_on {
 	draw_surface(surf_dark, camx(), camy())
 }
 
-var x0 = 20
-var y0 = 320
-var i = 0
-var dx = 24
-var yy = camy() + y0
-repeat obj_ronny.hp {
-	var xx = camx() + x0 + i * dx
-	draw_sprite(spr_heart, 0, xx, yy)
-	i++
-}
-i = 0
-var y0 = 340
-var yy = camy() + y0
-repeat obj_ronny.resource_amount {
-	var xx = camx() + x0 + i * dx
-	draw_sprite(Oil, 0, xx, yy)
-	i++
+ui.draw()
+tutorial.draw()
+
+draw_surface_ext(foreground, camx(), camy(), 1, 1, 0, c_white, foreground_alpha)
+if foreground_alpha == 1 {
+	draw_text_custom(camx_cent(), camy_cent(), pause_text, fnt, fa_center, fa_middle)
+	draw_surface_ext(foreground, camx(), camy(), 1, 1, 0, c_white, (1-pause_text_alpha))
 }

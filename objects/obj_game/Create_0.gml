@@ -135,3 +135,26 @@ tutorial = {
 	}
 }
 
+ui = {
+	draw: function() {
+		var x0 = 20
+		var y0 = 320
+		var i = 0
+		var dx = 24
+		var yy = camy() + y0
+		repeat obj_ronny.hp {
+			var xx = camx() + x0 + i * dx
+			draw_sprite(spr_heart, 0, xx, yy)
+			i++
+		}
+		i = 0
+		var y0 = 340
+		var yy = camy() + y0
+		repeat obj_ronny.resource_amount {
+			var xx = camx() + x0 + i * dx
+			draw_sprite(Oil, 0, xx, yy)
+			i++
+		}	
+	}
+}
+
