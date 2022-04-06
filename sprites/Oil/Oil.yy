@@ -7,15 +7,15 @@
   "edgeFiltering": false,
   "collisionTolerance": 0,
   "swfPrecision": 2.525,
-  "bbox_left": 0,
-  "bbox_right": 31,
-  "bbox_top": 0,
-  "bbox_bottom": 31,
+  "bbox_left": 3,
+  "bbox_right": 12,
+  "bbox_top": 1,
+  "bbox_bottom": 14,
   "HTile": false,
   "VTile": false,
   "For3D": false,
-  "width": 32,
-  "height": 32,
+  "width": 16,
+  "height": 16,
   "textureGroupId": {
     "name": "Default",
     "path": "texturegroups/Default",
@@ -24,12 +24,12 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"6606733a-df62-4e90-bacc-94d9a6b78d54","path":"sprites/spr_altar_candle/spr_altar_candle.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"6606733a-df62-4e90-bacc-94d9a6b78d54","path":"sprites/spr_altar_candle/spr_altar_candle.yy",},"LayerId":{"name":"ca319d1e-965b-4c04-b7f2-f47454e35c75","path":"sprites/spr_altar_candle/spr_altar_candle.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_altar_candle","path":"sprites/spr_altar_candle/spr_altar_candle.yy",},"resourceVersion":"1.0","name":"6606733a-df62-4e90-bacc-94d9a6b78d54","tags":[],"resourceType":"GMSpriteFrame",},
+    {"compositeImage":{"FrameId":{"name":"047f3aae-2363-4702-82fc-abfda27840fb","path":"sprites/Oil/Oil.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
+        {"FrameId":{"name":"047f3aae-2363-4702-82fc-abfda27840fb","path":"sprites/Oil/Oil.yy",},"LayerId":{"name":"a96b1efb-04e6-4127-b3ed-b1c45fad820f","path":"sprites/Oil/Oil.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
+      ],"parent":{"name":"Oil","path":"sprites/Oil/Oil.yy",},"resourceVersion":"1.0","name":"047f3aae-2363-4702-82fc-abfda27840fb","tags":[],"resourceType":"GMSpriteFrame",},
   ],
   "sequence": {
-    "spriteId": {"name":"spr_altar_candle","path":"sprites/spr_altar_candle/spr_altar_candle.yy",},
+    "spriteId": {"name":"Oil","path":"sprites/Oil/Oil.yy",},
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 30.0,
@@ -41,7 +41,7 @@
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
       {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
-            {"id":"a843255b-6d17-4cce-af6c-4ebc1d8d25f5","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"6606733a-df62-4e90-bacc-94d9a6b78d54","path":"sprites/spr_altar_candle/spr_altar_candle.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"f9f3605e-f931-4fae-803f-f6fca62f9607","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"047f3aae-2363-4702-82fc-abfda27840fb","path":"sprites/Oil/Oil.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
     ],
     "visibleRange": null,
@@ -58,14 +58,14 @@
     "yorigin": 0,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_altar_candle","path":"sprites/spr_altar_candle/spr_altar_candle.yy",},
+    "parent": {"name":"Oil","path":"sprites/Oil/Oil.yy",},
     "resourceVersion": "1.4",
-    "name": "spr_altar_candle",
+    "name": "Oil",
     "tags": [],
     "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"ca319d1e-965b-4c04-b7f2-f47454e35c75","tags":[],"resourceType":"GMImageLayer",},
+    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"a96b1efb-04e6-4127-b3ed-b1c45fad820f","tags":[],"resourceType":"GMImageLayer",},
   ],
   "nineSlice": null,
   "parent": {
@@ -73,7 +73,7 @@
     "path": "folders/Sprites.yy",
   },
   "resourceVersion": "1.0",
-  "name": "spr_altar_candle",
+  "name": "Oil",
   "tags": [],
   "resourceType": "GMSprite",
 }

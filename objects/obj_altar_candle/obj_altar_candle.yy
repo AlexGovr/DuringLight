@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_main_candle2",
-    "path": "sprites/spr_main_candle2/spr_main_candle2.yy",
+    "name": "spr_piedestal",
+    "path": "sprites/spr_piedestal/spr_piedestal.yy",
   },
   "solid": false,
   "visible": true,

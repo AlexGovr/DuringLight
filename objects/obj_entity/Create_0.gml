@@ -120,8 +120,9 @@ function draw_shadow() {
 //// player
 action_range = 60
 attack_range = 60
-resource_amount = 5
-resource_gain = 5
+resource_amount_start = 5
+resource_amount = resource_amount_start
+resource_gain = 1
 anim_hit_time = 10
 anim_hit = 0
 
@@ -131,6 +132,7 @@ function start() {
 	y = start_positition.Y
 	image_alpha = 1
 	dead = false
+	resource_amount = resource_amount_start
 }
 
 function set_hit(dir) {
@@ -157,29 +159,24 @@ function instance_in_point(pos) {
 function build_candle(pos) {
 	var inst = collision_point(pos.X, pos.Y, obj_candle, false, true)
 	if inst == noone {
-		if global.candles.last.building.building_possible(pos, global.candles.range) {
-			if !resource_amount
-				return false
-			resource_amount--
-			inst = instance_create_layer(pos.X, pos.Y, "instances", obj_candle)
-			global.candles.last.building.next_candle = inst
-			global.candles.last.building.burning_speed = 1
-		} else {
+		if !resource_amount
 			return false
-		}
+		resource_amount--
+		inst = instance_create_layer(pos.X, pos.Y, "instances", obj_candle)
+		global.candles.last.building.next_candle = inst
+		global.candles.last.building.burning_speed = 1
 	}
 	global.candles.last = inst
-	inst.building.build()
-	return true    
+	return true
 }
 
 //// building
 building = {
 	this: id,
-    progress: 0,
+    progress: 1,
     speed: 1,
 	next_candle: noone,
-	burning_left: 360,
+	burning_left: 500,
 	is_burning: false,
     burn_radius: 100,
 	burning_speed: 1,
@@ -237,7 +234,7 @@ building = {
 //// resource
 resource = {
 	this: id,
-	mining_cost: 4,
+	mining_cost: 1,
 	mine: function() {
 		mining_cost--
 		if !mining_cost {
@@ -291,7 +288,7 @@ mob = {
 				self.runaway_dist, point_direction(cndl.x, cndl.y, this.x, this.y))
     },
 	move: function(vel=undefined) {
-		if vel==undefined
+		if vel == undefined
 			vel = self.velocity
 		self.position.add(velocity)
 	},

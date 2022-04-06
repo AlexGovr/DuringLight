@@ -1,6 +1,7 @@
 
 depth = -y
 image_alpha = approach(image_alpha, 0, 0.01 * dead)
+highlight_building = false
 
 if global.game_paused or dead
 	exit
@@ -14,7 +15,7 @@ if is_player {
 	key_interact_hold = keyboard_check(ord("E"))
 	key_create_module = keyboard_check_pressed(ord("Q"))
 	key_action_pressed = mouse_check_button_pressed(mb_left)
-	key_build = mouse_check_button(mb_right)
+	key_build = mouse_check_button_pressed(mb_right)
 	key_action = mouse_check_button(mb_left)
 	mouse_pos.set(mouse_x, mouse_y)
 	mouse_pos_snapped = mouse_pos.copy().snap_to_grid(global.grid_size)
@@ -42,8 +43,13 @@ if is_player {
 
 	var mdist = point_dist(mouse_pos.X, mouse_pos.Y)
 	var action_in_range = mdist < action_range
-    if key_build and action_in_range {
-        build_candle(mouse_pos_snapped)
+    var cndl = global.candles.last
+	if instance_exists(cndl) {
+		if action_in_range and cndl.building.building_possible(mouse_pos_snapped, global.candles.range) {
+	        highlight_building = true
+			if key_build
+				build_candle(mouse_pos_snapped)
+		}
 	}
 
 	attack_on_cooldown--
@@ -92,7 +98,6 @@ if is_player {
 	down_free = place_empty(x, y + 1, obj_block)
 	left_free = place_empty(x - 1, y, obj_block)
 	right_free = place_empty(x + 1, y, obj_block)
-
 }
 
 //// building

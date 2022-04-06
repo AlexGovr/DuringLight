@@ -22,15 +22,15 @@ surface_reset_target()
 
 pause_text_alpha = 0
 pause_text_alpha_start_treshold = 0.25
-pause_text = "Press any key to watch world's agony"
+pause_text = "Press any key to watch the last light dying"
 
 alpha_ratio = 0.007
 alpha_ratio_reverse = 0.015 
 
 audio_set_master_gain(slash, global.slash_sound_gain_on_miss)
 //audio_play_sound(Scarry, 0, true)
-var snd = audio_play_sound(Ambient, 0, true)
-audio_sound_gain(snd, 0.1, 0)
+//var snd = audio_play_sound(Ambient, 0, true)
+//audio_sound_gain(snd, 0.1, 0)
 global.candle_sound = audio_play_sound(Candle, 0, true)
 
 function pause() {
@@ -63,3 +63,75 @@ function restart() {
 function game_over() {
 	pause()
 }
+
+
+tutorial = {
+	this: obj_ronny,
+	phase: 0,
+	time: 0,
+	alpha: 1,
+	alpha_ratio: 0.005,
+	draw: function() {
+		switch phase {
+			case 0: {
+				var oil = instance_nearest(this.x, this.y, obj_resource)
+				if point_distance(this.x, this.y, oil.x, oil.y) < 100 {
+					draw_sprite(spr_tute_mb, 0, oil.x, oil.y - 30)
+					draw_text_custom(oil.x, oil.y - 50, "Gather", fnt, fa_center, fa_middle)
+				}
+				break
+			}
+			case 1: {
+				if this.highlight_building {
+					draw_sprite(spr_tute_mb, 1, mouse_x, mouse_y - 36)
+					draw_text_custom(mouse_x, mouse_y - 70, "Build candlestick", fnt, fa_center, fa_middle)
+					if mouse_check_button_pressed(mb_right) {
+						phase++
+						alpha = 0
+					}
+				}
+				break
+			}
+			case 2: {
+				draw_set_alpha(alpha)
+				draw_text_custom(this.x, this.y + 100, "Fight your way through darkness", fnt, fa_center, fa_middle)
+				draw_set_alpha(1)
+				alpha += alpha_ratio
+				if alpha >= 1
+					alpha_ratio *= -1
+				if alpha_ratio < 0 and alpha <= 0 {
+					alpha = 0
+					alpha_ratio *= -1
+					phase++
+				}
+				break
+			}
+			case 3: {
+				draw_set_alpha(alpha)
+				draw_text_custom(this.x, this.y + 100, "Don't let the last candle die", fnt, fa_center, fa_middle)
+				draw_set_alpha(1)
+				alpha += alpha_ratio
+				if alpha >= 1
+					alpha_ratio *= -1
+				if alpha_ratio < 0 and alpha <= 0 {
+					alpha_ratio *= -1
+					phase++
+				}
+				break
+			}
+			case 4: {
+				
+				break
+			}
+			case 5: {
+				
+				break
+			}
+			case -1: {
+				
+				break
+			}
+		}
+	}
+}
+

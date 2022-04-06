@@ -1,4 +1,6 @@
 
+tutorial.draw()
+
 draw_surface_ext(foreground, camx(), camy(), 1, 1, 0, c_white, foreground_alpha)
 if foreground_alpha == 1 {
 	draw_text_custom(camx_cent(), camy_cent(), pause_text, fnt, fa_center, fa_middle)
@@ -31,15 +33,15 @@ if pause_text_alpha == 0 and global.lighting_on {
 	draw_set_alpha(1)
 	if instance_exists(cndl) {
 		gpu_set_blendmode(bm_subtract)
-		var xx = cndl.x - camx()
-		var yy = cndl.y - camy()
+		var xx = cndl.x - camx() + 16
+		var yy = cndl.y - camy() + 16
 		draw_sprite(spr_light_mask, 0, xx, yy)
 		// draw smaller candles
 		cndl = cndl.building.next_candle
 		while instance_exists(cndl) {
-			var xx = cndl.x - camx()
-			var yy = cndl.y - camy()
-			draw_sprite_ext(spr_light_mask_small, 0, xx, yy, 0.5, 0.5, 0, c_white, 1)
+			var xx = cndl.x - camx() + 16
+			var yy = cndl.y - camy() + 16
+			draw_sprite_ext(spr_light_mask_small, 0, xx, yy, 0.25, 0.25, 0, c_white, 1)
 			cndl = cndl.building.next_candle
 		}
 		gpu_set_blendmode(bm_normal)
@@ -47,4 +49,23 @@ if pause_text_alpha == 0 and global.lighting_on {
 	surface_reset_target()
 
 	draw_surface(surf_dark, camx(), camy())
+}
+
+var x0 = 20
+var y0 = 320
+var i = 0
+var dx = 24
+var yy = camy() + y0
+repeat obj_ronny.hp {
+	var xx = camx() + x0 + i * dx
+	draw_sprite(spr_heart, 0, xx, yy)
+	i++
+}
+i = 0
+var y0 = 340
+var yy = camy() + y0
+repeat obj_ronny.resource_amount {
+	var xx = camx() + x0 + i * dx
+	draw_sprite(Oil, 0, xx, yy)
+	i++
 }
