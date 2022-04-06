@@ -10,6 +10,6 @@ if is_building {
 }
 
 if is_resource {
-	if obj_game.tutorial.phase == 0
-		obj_game.tutorial.phase++
+	if obj_game.Tutorial.phase == 0
+		obj_game.Tutorial.phase++
 }

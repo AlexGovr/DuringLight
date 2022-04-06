@@ -9,7 +9,7 @@ shader = {
 pause_on = true
 restarting = false
 screen_darkening = 0
-surf = surface_create(camw()*2, camh()*2)
+surf_view = surface_create(camw()*2, camh()*2)
 surf_dark = surface_create(camw()*2, camh()*2)
 
 foreground_alpha = 1
@@ -28,9 +28,6 @@ alpha_ratio = 0.007
 alpha_ratio_reverse = 0.015 
 
 audio_set_master_gain(slash, global.slash_sound_gain_on_miss)
-//audio_play_sound(Scarry, 0, true)
-//var snd = audio_play_sound(Ambient, 0, true)
-//audio_sound_gain(snd, 0.1, 0)
 global.candle_sound = audio_play_sound(Candle, 0, true)
 
 function pause() {
@@ -42,20 +39,10 @@ function start() {
 	with obj_entity { 
 		start()
 	}
-
-	//if !instance_number(obj_altar_candle) {
-	//	var info = start_info.altar_candle
-	//	var inst = instance_create_layer(info.X, info.Y, "instances", obj_altar_candle)
-	//	global.candles.restart(inst)
-	//}
 }
 
 function restart() {
 	global.frames_since_start = 0
-	//instance_destroy(obj_candle)
-	//instance_destroy(obj_altar_candle)
-	//restarting = true
-	//screen_darkening = 1
 	room_restart()
 	start()
 }
@@ -64,11 +51,55 @@ function game_over() {
 	pause()
 }
 
+Lighting = {
+	this: id,
+	draw: function() {
+		if this.pause_text_alpha == 0 and global.lighting_on {
+			var cndl = global.candles.first
+			var shader = this.shader
+			var surf_view = this.surf_view
+			var surf_dark = this.surf_dark
 
-tutorial = {
+			surface_copy(surf_view, 0, 0, application_surface)
+			if instance_exists(cndl) {
+				shader.cndl_u = (cndl.x - camx()) / camw()
+				shader.cndl_v = (cndl.y - camy()) / camh()
+				shader_set_uniform_f(shader.candle_pos, shader.cndl_u, shader.cndl_v)
+			}
+			shader_set(shd_lighting)
+			draw_surface_stretched(surf_view, camx(), camy(), camw(), camh())
+			shader_reset()
+
+			// draw dark with lights
+			surface_set_target(surf_dark)
+			var c = c_black
+			draw_set_alpha(1)
+			draw_rectangle_color(0, 0, camw(), camh(), c, c, c, c, false)
+			draw_set_alpha(1)
+			if instance_exists(cndl) {
+				gpu_set_blendmode(bm_subtract)
+				var xx = cndl.x - camx() + 16
+				var yy = cndl.y - camy() + 16
+				draw_sprite(spr_light_mask, 0, xx, yy)
+				// draw smaller candles
+				cndl = cndl.building.next_candle
+				while instance_exists(cndl) {
+					var xx = cndl.x - camx() + 16
+					var yy = cndl.y - camy() + 16
+					draw_sprite_ext(spr_light_mask_small, 0, xx, yy, 0.25, 0.25, 0, c_white, 1)
+					cndl = cndl.building.next_candle
+				}
+				gpu_set_blendmode(bm_normal)
+			}
+			surface_reset_target()
+			draw_surface(surf_dark, camx(), camy())
+		}	
+	}
+}
+
+Tutorial = {
 	this: obj_ronny,
 	phase: 0,
-	time: 0,
 	alpha: 1,
 	alpha_ratio: 0.005,
 	draw: function() {
@@ -135,7 +166,7 @@ tutorial = {
 	}
 }
 
-ui = {
+UI = {
 	draw: function() {
 		var x0 = 20
 		var y0 = 320
