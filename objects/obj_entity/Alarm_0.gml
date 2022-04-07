@@ -8,4 +8,8 @@ if is_building {
 		global.candles.last = id
         global.candles.first = id
 	}
+	if object_index == obj_altar_candle {
+		with instance_create_layer(x, y - LastLight.height, "instances", obj_last_light)
+			LastLight.source_candle = obj_altar_candle
+	}
 }

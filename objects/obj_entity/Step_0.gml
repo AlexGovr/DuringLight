@@ -198,3 +198,7 @@ if is_mob {
 	var anim_vlc = new Vec2(1, dir_ind, true)
     animate(anim_vlc, abs(anim_vlc.len()))
 }
+
+if is_last_light {
+	LastLight.step()	
+}

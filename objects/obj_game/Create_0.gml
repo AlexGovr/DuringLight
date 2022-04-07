@@ -86,7 +86,8 @@ Lighting = {
 				while instance_exists(cndl) {
 					var xx = cndl.x - camx() + 16
 					var yy = cndl.y - camy() + 16
-					draw_sprite_ext(spr_light_mask_small, 0, xx, yy, 0.25, 0.25, 0, c_white, 1)
+					var scale = 0.25 * cndl.building.burning_speed
+					draw_sprite_ext(spr_light_mask_small, 0, xx, yy, scale, scale, 0, c_white, 1)
 					cndl = cndl.building.next_candle
 				}
 				gpu_set_blendmode(bm_normal)

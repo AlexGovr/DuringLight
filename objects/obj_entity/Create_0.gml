@@ -29,6 +29,7 @@ is_mob = false
 is_hitbox = false
 is_hittable = false
 is_obstacle = false
+is_last_light = false
 
 function highlight() {
 	highlighted = true
@@ -177,10 +178,14 @@ building = {
     progress: 1,
     speed: 1,
 	next_candle: noone,
-	burning_left: 500,
+	burning_left: 200,
 	is_burning: false,
     burn_radius: 100,
 	burning_speed: 1,
+	burning_speed_max: 5,
+	burning_amplify_ratio: 0.2,
+	burning_amplify_dist_min: 32,
+	burning_amplify_dist_max: 200,
 
     build: function() {
         if self.progress >= 1 {
@@ -192,6 +197,26 @@ building = {
     },
 	ready: function() {
 		return progress >= 1	
+	},
+	amplify_close_candles: function() {
+		var it = new IterInstances(obj_candle)
+		while it.next() {
+			var cndl = it.get()
+			if cndl = this
+				continue
+			var dist = max(point_distance(this.x, this.y, cndl.x, cndl.y),
+							 burning_amplify_dist_min)
+			if dist > burning_amplify_dist_max
+				continue
+			// <= 1
+			var amplified = cndl.building.burning_speed
+				+ burning_amplify_ratio * power(burning_amplify_dist_min / dist, 1.5)
+			cndl.building.burning_speed =
+				min(amplified, burning_speed_max)
+		}
+	},
+	begin_step: function() {
+		amplify_close_candles()	
 	},
 	step: function() {
 		if !is_burning
@@ -220,7 +245,10 @@ building = {
 	},
 	draw: function() {
 		var t = this
-		//draw_text(t.x, t.y, self.burning_left)
+		var _fnt = draw_get_font()
+		draw_set_font(fnt)
+		draw_text_transformed(t.x, t.y, self.burning_speed, 1, 1, 0)
+		draw_set_font(_fnt)
 		var ds = global.grid_size * 0.5
 		if instance_exists(next_candle) {
 			draw_set_alpha(0.25)
@@ -310,9 +338,35 @@ mob = {
 	},
     feels_hurt: function() {
         return self.hp <= self.hurt_treshold_hp
-    },
-	search_attack_target: function() {
-		
+    }
+}
+
+LastLight = {
+	this: id,
+	source_candle: noone,
+	height: 96,
+	sp: 2,
+	step: function() {
+		if instance_exists(source_candle) {
+			if point_distance(this.x, world_y(), source_candle.x, source_candle.y) < sp {
+				this.velocity.set(0, 0)	
+			} else {
+				this.velocity.set_polar(sp, point_direction(this.x, world_y(), source_candle.x, source_candle.y))
+			}
+			this.position.add(this.velocity)
+			this.x = this.position.X
+			this.y = this.position.Y
+			return 0
+		}
+		var cndl = instance_nearest(this.x, world_y(), obj_candle)
+		if cndl != noone
+			source_candle = cndl
+	},
+	my_y: function(val) {
+		return val - height
+	},
+	world_y: function(val) {
+		return this.y + height	
 	}
 }
 
