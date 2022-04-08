@@ -38,7 +38,6 @@
     {"id":{"name":"astar","path":"scripts/astar/astar.yy",},"order":1,},
     {"id":{"name":"obj_stone","path":"objects/obj_stone/obj_stone.yy",},"order":2,},
     {"id":{"name":"spr_light_mask","path":"sprites/spr_light_mask/spr_light_mask.yy",},"order":6,},
-    {"id":{"name":"obj_ui","path":"objects/obj_ui/obj_ui.yy",},"order":7,},
     {"id":{"name":"autotiling","path":"scripts/autotiling/autotiling.yy",},"order":2,},
     {"id":{"name":"obj_small_lake","path":"objects/obj_small_lake/obj_small_lake.yy",},"order":4,},
     {"id":{"name":"slash","path":"sounds/slash/slash.yy",},"order":2,},

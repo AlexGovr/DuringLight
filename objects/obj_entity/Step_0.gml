@@ -64,7 +64,7 @@ if is_player {
 				inst.highlight()
 			if key_action_pressed {
 				if inst.is_resource {
-					if inst.resource.mine()
+					if inst.Resource.mine()
 						resource_amount += resource_gain
 				}
 				if inst.is_mob and !attack_on_cooldown {

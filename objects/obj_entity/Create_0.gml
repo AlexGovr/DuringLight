@@ -261,7 +261,7 @@ building = {
 }
 
 //// resource
-resource = {
+Resource = {
 	this: id,
 	mining_cost: 1,
 	mine: function() {
@@ -349,7 +349,7 @@ LastLight = {
 	step: function() {
 		if instance_exists(source_candle) {
 			if point_distance(this.x, world_y(), source_candle.x, source_candle.y) < sp {
-				this.velocity.set(0, 0)	
+				this.velocity.set(0, 0)	 
 			} else {
 				this.velocity.set_polar(sp, point_direction(this.x, world_y(), source_candle.x, source_candle.y))
 			}
