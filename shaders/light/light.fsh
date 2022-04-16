@@ -3,7 +3,7 @@
 //
 
 uniform vec2 u_resolution;
-uniform vec2 u_pos;
+uniform vec2 u_mouse;
 uniform float u_aspect_ratio;
 
 varying vec2 v_vTexcoord;
@@ -21,11 +21,9 @@ float bright(float d) {
 }
 
 vec4 lighting(vec4 col, vec2 pos) {
-	float d = dist(pos, u_pos);
+	float d = dist(pos, u_mouse);
 	float b = col.b + (1.0 - col.b) * pow(d, 0.5);
 	vec3 _col = vec3(col.r, col.g, b) * bright(d);
-	//if (d < 0.1)
-	//	_col = vec3(1.0, 0.0, 0.0);
 	return vec4(_col, col.a);
 }
 

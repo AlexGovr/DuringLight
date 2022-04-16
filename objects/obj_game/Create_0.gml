@@ -2,15 +2,16 @@
 debug_ini()
 
 shader = {
-	candle_pos: shader_get_uniform(shd_lighting, "candle_pos"),
+	u_pos: shader_get_uniform(shd_lighting, "u_pos"),
+	u_resolution: shader_get_uniform(shd_lighting, "u_resolution"),
+	u_aspect_ratio: shader_get_uniform(shd_lighting, "u_aspect_ratio"),
 	cndl_u: 0,
 	cndl_v: 0,
 }
 pause_on = true
-restarting = false
-screen_darkening = 0
 surf_view = surface_create(camw()*2, camh()*2)
 surf_dark = surface_create(camw()*2, camh()*2)
+drawing = true
 
 foreground_alpha = 1
 foreground_alpha_pause_treshold = 1
@@ -64,35 +65,37 @@ Lighting = {
 			if instance_exists(cndl) {
 				shader.cndl_u = (cndl.x - camx()) / camw()
 				shader.cndl_v = (cndl.y - camy()) / camh()
-				shader_set_uniform_f(shader.candle_pos, shader.cndl_u, shader.cndl_v)
+				shader_set_uniform_f(shader.u_pos, shader.cndl_u, shader.cndl_v)
+				shader_set_uniform_f(shader.u_resolution, camw(), camh())
+				shader_set_uniform_f(shader.u_aspect_ratio, camh() / camw())
 			}
 			shader_set(shd_lighting)
 			draw_surface_stretched(surf_view, camx(), camy(), camw(), camh())
 			shader_reset()
 
 			// draw dark with lights
-			surface_set_target(surf_dark)
-			var c = c_black
-			draw_set_alpha(1)
-			draw_rectangle_color(0, 0, camw(), camh(), c, c, c, c, false)
-			draw_set_alpha(1)
-			if instance_exists(cndl) {
-				gpu_set_blendmode(bm_subtract)
-				var xx = cndl.x - camx() + 16
-				var yy = cndl.y - camy() + 16
-				draw_sprite(spr_light_mask, 0, xx, yy)
-				// draw smaller candles
-				cndl = cndl.building.next_candle
-				while instance_exists(cndl) {
-					var xx = cndl.x - camx() + 16
-					var yy = cndl.y - camy() + 16
-					draw_sprite_ext(spr_light_mask_small, 0, xx, yy, 0.25, 0.25, 0, c_white, 1)
-					cndl = cndl.building.next_candle
-				}
-				gpu_set_blendmode(bm_normal)
-			}
-			surface_reset_target()
-			draw_surface(surf_dark, camx(), camy())
+			//surface_set_target(surf_dark)
+			//var c = c_black
+			//draw_set_alpha(1)
+			//draw_rectangle_color(0, 0, camw(), camh(), c, c, c, c, false)
+			//draw_set_alpha(1)
+			//if instance_exists(cndl) {
+			//	gpu_set_blendmode(bm_subtract)
+			//	var xx = cndl.x - camx() + 16
+			//	var yy = cndl.y - camy() + 16
+			//	draw_sprite(spr_light_mask, 0, xx, yy)
+			//	// draw smaller candles
+			//	cndl = cndl.building.next_candle
+			//	while instance_exists(cndl) {
+			//		var xx = cndl.x - camx() + 16
+			//		var yy = cndl.y - camy() + 16
+			//		draw_sprite_ext(spr_light_mask_small, 0, xx, yy, 0.25, 0.25, 0, c_white, 1)
+			//		cndl = cndl.building.next_candle
+			//	}
+			//	gpu_set_blendmode(bm_normal)
+			//}
+			//surface_reset_target()
+			//draw_surface(surf_dark, camx(), camy())
 		}	
 	}
 }
