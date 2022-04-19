@@ -22,3 +22,6 @@ if pause_on {
 	pause_text_alpha = approach(pause_text_alpha, 0, alpha_ratio_reverse * (foreground_alpha == 1))
 	global.game_paused = !(foreground_alpha < foreground_alpha_pause_treshold)
 }
+
+ui_slider.set_pos(camx() + 20, camy() + 20)
+ui_slider.step()
