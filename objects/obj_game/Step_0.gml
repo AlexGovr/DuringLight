@@ -23,5 +23,9 @@ if pause_on {
 	global.game_paused = !(foreground_alpha < foreground_alpha_pause_treshold)
 }
 
-ui_slider.set_pos(camx() + 20, camy() + 20)
-ui_slider.step()
+for(var i = 0; i < array_length(ui_sliders); i++) {
+	var slider = ui_sliders[i]
+	slider.set_pos(camx() + 20, camy() + 20 * (i + 1))
+	slider.step()
+}
+

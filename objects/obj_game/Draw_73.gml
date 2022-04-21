@@ -27,9 +27,9 @@ var u_blue_add = shader_get_uniform(shader, "u_blue_add")
 shader_set_uniform_f(u_resolution, cw, ch)
 shader_set_uniform_f(u_mouse, umx*window_scale, umy*window_scale)
 shader_set_uniform_f(u_aspect_ratio, uar)
-shader_set_uniform_f_array(u_radiuses, )
-shader_set_uniform_f_array(u_brightness, [0.02, 0.1, 0.3, 0.5])
-shader_set_uniform_f_array(u_blue_add, [0.9, 0.5, 0.5, 0.2])//[0.0, 0.15, 0.6, 0.8])
+shader_set_uniform_f_array(u_radiuses, shader_data.u_radiuses)
+shader_set_uniform_f_array(u_brightness, shader_data.u_brightness)
+shader_set_uniform_f_array(u_blue_add, shader_data.u_blue_add)
 if drawing {
 	draw_surface_stretched(surf_view, cx, cy, cw, ch)
 }
@@ -40,8 +40,8 @@ if foreground_alpha == 1 {
 	draw_text_custom(camx_cent(), camy_cent(), pause_text, fnt, fa_center, fa_middle)
 	draw_surface_ext(foreground, camx(), camy(), 1, 1, 0, c_white, (1-pause_text_alpha))
 }
-<<<<<<< Updated upstream
-=======
 
-ui_slider.draw()
->>>>>>> Stashed changes
+for(var i = 0; i < array_length(shader_data.u_radiuses); i++) {
+	var slider = ui_sliders[i]
+	slider.draw()
+}

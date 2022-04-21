@@ -2,9 +2,15 @@
 // Simple passthrough fragment shader
 //
 
+const int steps = 3;
+
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_aspect_ratio;
+uniform float u_raduises[steps];
+uniform float u_brightness[steps];
+uniform float u_blue_arr[steps];
+
 
 varying vec2 v_vTexcoord;
 varying vec4 v_vColour;

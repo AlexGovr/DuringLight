@@ -1,13 +1,15 @@
 
 debug_ini()
 
-shader = {
+shader_data = {
 	u_pos: shader_get_uniform(shd_lighting, "u_pos"),
 	u_resolution: shader_get_uniform(shd_lighting, "u_resolution"),
 	u_aspect_ratio: shader_get_uniform(shd_lighting, "u_aspect_ratio"),
 	cndl_u: 0,
 	cndl_v: 0,
-	u_raduises: [1.25, 0.7, 0.3]
+	u_radiuses: [1.25, 0.7, 0.3],
+    u_brightness: [0.02, 0.1, 0.3, 0.5],
+    u_blue_add: [0.9, 0.5, 0.5, 0.2],
 }
 pause_on = true
 surf_view = surface_create(camw()*2, camh()*2)
@@ -170,10 +172,17 @@ UI = {
 }
 
 ui_sliders = []
-var max_raduis = 1.5
-var arr = shaders.u_raduises
+var max_radius = 1.5
+var arr = shader_data.u_radiuses
 for(var i = 0; i < array_length(arr); i++) {
 	var slider = new UiSlider(spr_ui_slider, 200,
-							  0, max_radius, arr[i], 0, 0)
+							  arr[i], 0, max_radius)
+    slider.extra = {
+        hook_arr: shader_data.u_radiuses,
+        hook_index: i,
+    }
+    slider.perform_hook = function(slf) {
+        slf.extra.hook_arr[slf.extra.hook_index] = slf.value
+    }
 	array_push(ui_sliders, slider)
 }
