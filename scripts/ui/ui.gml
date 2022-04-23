@@ -38,13 +38,11 @@ function UiSlider(
 	}
 	
 	function check_is_captured() {
-		var dist = point_distance(X + slider_rel_x, Y, mouse_x, mouse_y)
 		return mouse_check_button_pressed(mb_left)
 			   and (point_distance(X + slider_rel_x, Y, mouse_x, mouse_y) < collision_raduis)
 	}
 
 	function step() {
-		//step()
 		if is_captured {
 			slider_rel_x = clamp(mouse_x - X, 0, width)
 			set_value()
@@ -60,5 +58,5 @@ function UiSlider(
         draw_sprite(spr, 1, X + slider_rel_x, Y)
     }
 	
-	function perform_hook() {}
+	function perform_hook(slf) {}
 }

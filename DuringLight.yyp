@@ -29,7 +29,6 @@
     {"id":{"name":"spr_main_candle","path":"sprites/spr_main_candle/spr_main_candle.yy",},"order":3,},
     {"id":{"name":"obj_tree","path":"objects/obj_tree/obj_tree.yy",},"order":0,},
     {"id":{"name":"obj_mob","path":"objects/obj_mob/obj_mob.yy",},"order":8,},
-    {"id":{"name":"rm_test","path":"rooms/rm_test/rm_test.yy",},"order":2,},
     {"id":{"name":"ai","path":"scripts/ai/ai.yy",},"order":0,},
     {"id":{"name":"sPlayerMoveRight_strip4","path":"sprites/sPlayerMoveRight_strip4/sPlayerMoveRight_strip4.yy",},"order":9,},
     {"id":{"name":"ui","path":"scripts/ui/ui.yy",},"order":12,},
@@ -81,7 +80,6 @@
     {"id":{"name":"spr_stone_group","path":"sprites/spr_stone_group/spr_stone_group.yy",},"order":9,},
     {"id":{"name":"sAttackUp_strip3","path":"sprites/sAttackUp_strip3/sAttackUp_strip3.yy",},"order":11,},
     {"id":{"name":"Oil","path":"sprites/Oil/Oil.yy",},"order":10,},
-    {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":1,},
   ],
   "Options": [
     {"name":"Linux","path":"options/linux/options_linux.yy",},
@@ -98,8 +96,6 @@
   },
   "RoomOrderNodes": [
     {"roomId":{"name":"RoomMain","path":"rooms/RoomMain/RoomMain.yy",},},
-    {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
-    {"roomId":{"name":"rm_test","path":"rooms/rm_test/rm_test.yy",},},
   ],
   "Folders": [
     {"folderPath":"folders/Sprites.yy","order":7,"resourceVersion":"1.0","name":"Sprites","tags":[],"resourceType":"GMFolder",},

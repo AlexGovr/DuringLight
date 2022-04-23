@@ -42,6 +42,14 @@ if foreground_alpha == 1 {
 }
 
 for(var i = 0; i < array_length(shader_data.u_radiuses); i++) {
-	var slider = ui_sliders[i]
+	var slider = ui_sliders_r[i]
+	slider.draw()
+}
+for(var i = 0; i < array_length(ui_sliders_br); i++) {
+	var slider = ui_sliders_br[i]
+	slider.draw()
+}
+for(var i = 0; i < array_length(ui_sliders_bl); i++) {
+	var slider = ui_sliders_bl[i]
 	slider.draw()
 }

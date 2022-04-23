@@ -23,9 +23,19 @@ if pause_on {
 	global.game_paused = !(foreground_alpha < foreground_alpha_pause_treshold)
 }
 
-for(var i = 0; i < array_length(ui_sliders); i++) {
-	var slider = ui_sliders[i]
+for(var i = 0; i < array_length(ui_sliders_r); i++) {
+	var slider = ui_sliders_r[i]
 	slider.set_pos(camx() + 20, camy() + 20 * (i + 1))
+	slider.step()
+}
+for(var i = 0; i < array_length(ui_sliders_br); i++) {
+	var slider = ui_sliders_br[i]
+	slider.set_pos(camx() + 130, camy() + 20 * (i + 1))
+	slider.step()
+}
+for(var i = 0; i < array_length(ui_sliders_bl); i++) {
+	var slider = ui_sliders_bl[i]
+	slider.set_pos(camx() + 240, camy() + 20 * (i + 1))
 	slider.step()
 }
 

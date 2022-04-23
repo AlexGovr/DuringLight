@@ -2,13 +2,10 @@
 debug_ini()
 
 shader_data = {
-	u_pos: shader_get_uniform(shd_lighting, "u_pos"),
-	u_resolution: shader_get_uniform(shd_lighting, "u_resolution"),
-	u_aspect_ratio: shader_get_uniform(shd_lighting, "u_aspect_ratio"),
 	cndl_u: 0,
 	cndl_v: 0,
 	u_radiuses: [1.25, 0.7, 0.3],
-    u_brightness: [0.02, 0.1, 0.3, 0.5],
+    u_brightness: [0.02, 1, 1.0, 1.0],
     u_blue_add: [0.9, 0.5, 0.5, 0.2],
 }
 pause_on = true
@@ -171,18 +168,49 @@ UI = {
 	}
 }
 
-ui_sliders = []
+var width = 100
+ui_sliders_r = []
+ui_sliders_br = []
+ui_sliders_bl = []
 var max_radius = 1.5
 var arr = shader_data.u_radiuses
 for(var i = 0; i < array_length(arr); i++) {
-	var slider = new UiSlider(spr_ui_slider, 200,
+	var slider = new UiSlider(spr_ui_slider, width,
 							  arr[i], 0, max_radius)
     slider.extra = {
-        hook_arr: shader_data.u_radiuses,
+        hook_arr: arr,
         hook_index: i,
     }
     slider.perform_hook = function(slf) {
         slf.extra.hook_arr[slf.extra.hook_index] = slf.value
     }
-	array_push(ui_sliders, slider)
+	array_push(ui_sliders_r, slider)
+}
+
+arr = shader_data.u_brightness
+for(var i = 0; i < array_length(arr); i++) {
+	var slider = new UiSlider(spr_ui_slider, width,
+							  arr[i], 0, max_radius)
+    slider.extra = {
+        hook_arr: arr,
+        hook_index: i,
+    }
+    slider.perform_hook = function(slf) {
+        slf.extra.hook_arr[slf.extra.hook_index] = slf.value
+    }
+	array_push(ui_sliders_br, slider)
+}
+
+arr = shader_data.u_blue_add
+for(var i = 0; i < array_length(arr); i++) {
+	var slider = new UiSlider(spr_ui_slider, width,
+							  arr[i], 0, 1)
+    slider.extra = {
+        hook_arr: arr,
+        hook_index: i,
+    }
+    slider.perform_hook = function(slf) {
+        slf.extra.hook_arr[slf.extra.hook_index] = slf.value
+    }
+	array_push(ui_sliders_bl, slider)
 }
